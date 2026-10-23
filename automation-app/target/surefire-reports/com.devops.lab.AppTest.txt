@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.devops.lab.AppTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.185 s <<< FAILURE! - in com.devops.lab.AppTest
-verifySystemBottleneckValidation  Time elapsed: 0.102 s  <<< FAILURE!
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.188 s <<< FAILURE! - in com.devops.lab.AppTest
+verifySystemBottleneckValidation  Time elapsed: 0.103 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: CRITICAL: System bottleneck or defect detected in value stream! ==> expected: <false> but was: <true>
 	at com.devops.lab.AppTest.verifySystemBottleneckValidation(AppTest.java:17)
 
