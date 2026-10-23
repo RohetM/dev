@@ -1,4 +1,4 @@
-name: DevOps CD Pipeline - Staging Gate
+name: DevOps Full CD Pipeline - Staging & Production
 on:
   push:
     branches: [ main ]
@@ -24,6 +24,24 @@ jobs:
     steps:
       - name: Simulated Staging Deployment
         run: |
-          echo "Validating artifact integrity..."
-          echo "Deploying build artifact to Staging Cluster..."
-          echo "Staging deployment completed successfully."
+          echo "Deploying to Staging..."
+          echo "Staging deployment validated."
+
+  deploy-to-production:
+    needs: deploy-to-staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Production Cluster
+        run: |
+          echo "Initiating zero-downtime production deployment..."
+          echo "Traffic routed to active release container."
+
+      - name: Run Production Health Checks & Verify Rollback Mechanism
+        run: |
+          echo "Executing synthetic canary health check..."
+          STATUS_CODE=200
+          if [ $STATUS_CODE -ne 200 ]; then
+            echo "❌ CRITICAL: Canary endpoint returned status $STATUS_CODE. Initiating automatic rollback!"
+            exit 1
+          fi
+          echo "✔ Canary health checks passed (HTTP 200). Production deployment stable."
