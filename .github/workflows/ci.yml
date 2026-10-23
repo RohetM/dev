@@ -1,7 +1,11 @@
-name: DevOps Java CI Automation Pipeline
-on: [push]
+name: DevOps CD Pipeline - Staging Gate
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
 jobs:
-  build-and-validate:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -10,5 +14,16 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Build and Test with Maven
+      - name: Build & Run Unit Tests
         run: mvn clean package -f automation-app/pom.xml
+
+  deploy-to-staging:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Simulated Staging Deployment
+        run: |
+          echo "Validating artifact integrity..."
+          echo "Deploying build artifact to Staging Cluster..."
+          echo "Staging deployment completed successfully."
